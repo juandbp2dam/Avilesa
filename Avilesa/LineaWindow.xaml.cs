@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Avilesa
 {
@@ -30,6 +31,7 @@ namespace Avilesa
         public string CodMunicipioDestino { get; set; }
         public TimeOnly HoraSalida { get; set; }
         public TimeOnly Intervalo { get; set; }
+        private Linea lineaActual;
         public AppAvilesaDBContext DBContext {get; set;}
         public LineaWindow() : this(0, new AppAvilesaDBContext()){}
 
@@ -40,6 +42,7 @@ namespace Avilesa
             this.lineaConsulta = lineaCons;
             inicializar();
             
+            
         }
 
         private void inicializar() {
@@ -47,9 +50,47 @@ namespace Avilesa
             this.DataContext = this;
             NumeroLinea = DBContext.Lineas.Max(l => l.Numero)+1;
             llenaNumLineas();
-
+            inicializarControles();
         }
 
+        private void inicializarControles()
+        {
+            if (lineaConsulta == 0)
+            {
+                btnGuardar.Content = "Guardar";
+                habilitarControles(true);
+            }
+            else
+            {
+                btnGuardar.Content = "Editar";
+                habilitarControles(false);
+                inicializarDatos();
+
+            }
+            
+        }
+
+        private void inicializarDatos()
+        {
+            lineaActual = DBContext.Lineas.FirstOrDefault(l => l.Numero == lineaConsulta);
+            if (lineaActual != null)
+            {
+                NumeroLinea = lineaActual.Numero;
+                CodMunicipioOrigen = lineaActual.CodMunicipioOrigen;
+                CodMunicipioDestino = lineaActual.CodMunicipioDestino;
+                HoraSalida = lineaActual.HoraSalida;
+                Intervalo = lineaActual.Intervalo;
+            }
+        }
+
+        private void habilitarControles(bool habilitado)
+        {
+            cmbNumeroLinea.IsEnabled = lineaConsulta == 0 ? true : habilitado;
+            cmbMunicipioDestino.IsEnabled = habilitado;
+            cmbMunicipioOrigen.IsEnabled = habilitado;
+            txtHoraSalida.IsReadOnly = !habilitado;
+            txtIntervalo.IsReadOnly = !habilitado;
+        }
 
         private void llenaNumLineas()
         {
@@ -85,10 +126,25 @@ namespace Avilesa
                     }
                 }
             }
+            else if (btnGuardar.Content.ToString().Equals("Editar"))
+            {
+                habilitarControles(true);
+                btnGuardar.Content = "Guardar";
+            }
             else
             {
-                // Consultamos / actualizamos
+                lineaActual.CodMunicipioOrigen = CodMunicipioOrigen;
+                lineaActual.CodMunicipioDestino = CodMunicipioDestino;
+                lineaActual.HoraSalida = HoraSalida;
+                lineaActual.Intervalo = Intervalo;
+                DBContext.SaveChanges();
+                this.Close();
             }
+        }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -36,6 +36,12 @@ namespace Avilesa
                 List<Linea> lstLineas = new List<Linea>(csv.GetRecords<Linea>().ToList());
                 lstLineas.ForEach(l => context.Lineas.Add(l));
             }
+            using (var reader = new StreamReader(CsvDatos.RutaArchivoParadas))
+            using (var csv = new CsvReader(reader, CsvDatos.CsvConfig))
+            {
+                List<Parada> lstParadas = new List<Parada>(csv.GetRecords<Parada>().ToList());
+                lstParadas.ForEach(p => context.Paradas.Add(p));
+            }
         }
         private void dummy() {
             // Voy a añadir líneas al contexto para ver si graba en el csv vacío
@@ -67,6 +73,31 @@ namespace Avilesa
                     context.Lineas.Remove(dgLineas.SelectedItem as Linea);
                     context.SaveChanges();
                 }
+            }
+            
+        }
+
+        private void btnConsulta_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgLineas.SelectedIndex >= 0)
+            {
+                Linea l = dgLineas.SelectedItem as Linea;
+                if (l != null) { 
+                    LineaWindow lineaWindow = new LineaWindow(l.Numero, context);
+                    lineaWindow.ShowDialog();
+                    this.dgLineas.Items.Refresh();
+                }
+            }
+            
+        }
+
+        private void btnItinerario_Click(object sender, RoutedEventArgs e)
+        {
+            Linea l = dgLineas.SelectedItem as Linea;
+            if (l != null)
+            {
+                ItinerarioWindow itW = new ItinerarioWindow(l.Numero, context);
+                itW.ShowDialog();
             }
             
         }

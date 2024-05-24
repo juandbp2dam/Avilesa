@@ -34,7 +34,7 @@
 
         </StackPanel>
         <Button x:Name="btnGuardar" Content="Guardar" HorizontalAlignment="Left" Margin="111,28,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Width="102" Click="Button_Click"/>
-        <Button Grid.Column="1" Content="Cancelar" HorizontalAlignment="Left" Margin="24,28,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.341,0.685" Width="97"/>
+        <Button x:Name="btnCancelar" Grid.Column="1" Content="Cancelar" HorizontalAlignment="Left" Margin="24,28,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.341,0.685" Width="97" Click="btnCancelar_Click"/>
 
     </Grid>
 </Window>

@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ParadaWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Data\lineas.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

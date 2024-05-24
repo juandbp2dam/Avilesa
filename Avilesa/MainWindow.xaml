@@ -15,7 +15,7 @@
             <RowDefinition Height="331*"/>
             <RowDefinition Height="60*"/>
         </Grid.RowDefinitions>
-        <Label Content="AVILESA GESTIÓN DE ITINERARIOS" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Width="790" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+        <Label Content="AVILESA GESTIÓN DE LÍNEAS" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Width="790" HorizontalContentAlignment="Center" FontWeight="Bold"/>
         <DataGrid x:Name="dgLineas" Grid.Row="1" ItemsSource="{Binding Lineas}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Número" Binding="{Binding Numero}"/>
@@ -28,9 +28,9 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Button x:Name="btnNuevo" Width="100" Margin="10,0" Content="Nueva línea" Click="btnNuevo_Click"></Button>
-            <Button x:Name="btnConsulta" Content="Consultar / Editar" RenderTransformOrigin="-6.067,0.48"/>
+            <Button x:Name="btnConsulta" Content="Consultar / Editar" RenderTransformOrigin="-6.067,0.48" Click="btnConsulta_Click"/>
             <Button x:Name="btnEliminar" Width="100" Margin="10,0" Content="Borrar línea" Click="btnEliminar_Click"></Button>
-            <Button x:Name="btnItinerario" Width="100" Margin="10,0" Content="Itinerario"></Button>
+            <Button x:Name="btnItinerario" Width="100" Margin="10,0" Content="Itinerario" Click="btnItinerario_Click"></Button>
             
         </StackPanel>
 
