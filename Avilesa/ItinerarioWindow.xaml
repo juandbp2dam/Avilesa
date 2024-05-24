@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Avilesa"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing">
     <Window.Resources>
         <local:HoraConverter x:Key="HoraConverter" />
     </Window.Resources>
@@ -19,7 +19,7 @@
         <DataGrid x:Name="dgParadas" Grid.Row="1" ItemsSource="{Binding Paradas}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Línea" Binding="{Binding NumLinea}"/>
-                <DataGridTextColumn Header="Parada" Binding="{Binding CodMunicipioParada}"/>
+                <DataGridTextColumn Header="Parada" Width="100" Binding="{Binding NombreMunicipioParada}"/>
                 <DataGridTextColumn Header="Intervalo"  Binding="{Binding Intervalo, Converter={StaticResource HoraConverter}, Mode=TwoWay}"/>
             </DataGrid.Columns>
         </DataGrid>

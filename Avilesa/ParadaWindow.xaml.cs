@@ -24,16 +24,18 @@ namespace Avilesa
     {
         public List<Municipio> Municipios { get; set; }
         public int NumeroLinea { get; set; }
+        private Linea linea;
         public string CodMunicipioParada { get; set; }
         public TimeOnly Intervalo { get; set; }
         public AppAvilesaDBContext DBContext {get; set;}
         
 
-        public ParadaWindow(int numeroLinea, AppAvilesaDBContext dbContext)
+        public ParadaWindow(Linea linea, AppAvilesaDBContext dbContext)
         {
             InitializeComponent();
             this.DBContext = dbContext;
-            this.NumeroLinea = numeroLinea;
+            this.NumeroLinea = linea!= null ? linea.Numero : 0;
+            this.linea = linea;
             inicializar();
             
             
@@ -48,6 +50,7 @@ namespace Avilesa
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Parada newParada = new Parada(NumeroLinea, CodMunicipioParada, Intervalo);
+            linea.InsertarParada(newParada);
             DBContext.Paradas.Add(newParada);
             DBContext.SaveChanges();
             this.Close();

@@ -19,8 +19,8 @@
         <DataGrid x:Name="dgLineas" Grid.Row="1" ItemsSource="{Binding Lineas}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Número" Binding="{Binding Numero}"/>
-                <DataGridTextColumn Header="Origen" Binding="{Binding CodMunicipioOrigen}"/>
-                <DataGridTextColumn Header="Destino" Binding="{Binding CodMunicipioDestino}"/>
+                <DataGridTextColumn Header="Origen" Width="100" Binding="{Binding NombreMunicipioOrigen}"/>
+                <DataGridTextColumn Header="Destino" Width="100" Binding="{Binding NombreMunicipioDestino}"/>
                 <DataGridTextColumn Header="Hora" Binding="{Binding HoraSalida, Converter={StaticResource HoraConverter}, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Intervalo"  Binding="{Binding Intervalo, Converter={StaticResource HoraConverter}, Mode=TwoWay}"/>
             </DataGrid.Columns>

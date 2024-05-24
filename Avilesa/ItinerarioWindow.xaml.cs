@@ -25,6 +25,7 @@ namespace Avilesa
         private AppAvilesaDBContext dbContext;
         public ObservableCollection<Parada> Paradas { get; set; }
         private int numeroLinea;
+        private Linea linea;
 
         public ItinerarioWindow(int numLinea, AppAvilesaDBContext dbContext)
         {
@@ -32,6 +33,7 @@ namespace Avilesa
             this.DataContext = this;
             this.dbContext = dbContext;
             this.numeroLinea = numLinea;
+            this.linea = dbContext.Lineas.FirstOrDefault(l => l.Numero.Equals(numLinea));
             Paradas = new ObservableCollection<Parada>();
             fillDataGrid();
         }
@@ -46,7 +48,7 @@ namespace Avilesa
         }
         private void btnNuevo_Click(object sender, RoutedEventArgs e)
         {
-            ParadaWindow paradaW = new ParadaWindow(numeroLinea, dbContext);
+            ParadaWindow paradaW = new ParadaWindow(linea, dbContext);
             paradaW.ShowDialog();
             fillDataGrid();
         }
@@ -76,6 +78,12 @@ namespace Avilesa
             //    }
             //}
             
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            
+
         }
     }
 }

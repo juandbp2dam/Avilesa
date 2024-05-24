@@ -30,18 +30,23 @@ namespace Avilesa
         }
 
         private void fillDataGrid() {
-            using (var reader = new StreamReader(CsvDatos.RutaArchivoLineas))
-            using (var csv = new CsvReader(reader, CsvDatos.CsvConfig))
-            {
-                List<Linea> lstLineas = new List<Linea>(csv.GetRecords<Linea>().ToList());
-                lstLineas.ForEach(l => context.Lineas.Add(l));
-            }
             using (var reader = new StreamReader(CsvDatos.RutaArchivoParadas))
             using (var csv = new CsvReader(reader, CsvDatos.CsvConfig))
             {
                 List<Parada> lstParadas = new List<Parada>(csv.GetRecords<Parada>().ToList());
                 lstParadas.ForEach(p => context.Paradas.Add(p));
             }
+            using (var reader = new StreamReader(CsvDatos.RutaArchivoLineas))
+            using (var csv = new CsvReader(reader, CsvDatos.CsvConfig))
+            {
+                List<Linea> lstLineas = new List<Linea>(csv.GetRecords<Linea>().ToList());
+                lstLineas.ForEach(l => {
+                    List<Parada> paradas = context.Paradas.Where(p => p.NumLinea.Equals(l.Numero)).ToList();
+                    l.InsertarItinerario(paradas);
+                    context.Lineas.Add(l);
+                });
+            }
+           
         }
         private void dummy() {
             // Voy a añadir líneas al contexto para ver si graba en el csv vacío
